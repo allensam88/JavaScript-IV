@@ -98,15 +98,17 @@ class ProjectManager extends Instructor {
         this.gradClassName = pmAttrs.gradClassName;
         this.favInstructor = pmAttrs.favInstructor;
     }
-    standUp(){
+    standUp(channel){
         //takes in a slack channel and logs `{name} announces to {channel}, @channel standy times!​​​​​
+        return `${this.name} announces to ${channel}, @channel standy times!`
     }
-    debugsCode(){
+    debugsCode(student, subject){
         //takes in a student object and a subject and logs out {name} debugs {student.name}'s code on {subject}
+        return `${this.name} debugs ${student}'s code on ${subject}.`
     }
 }
 
-/*****BREAK*****/
+/*****LINE BREAK*****/
 
 //INSTRUCTOR WAREHOUSE
 const fred = new Instructor({
@@ -179,7 +181,7 @@ const don = new ProjectManager({
     catchPhrase: `How can I help you?`
 });
 
-const jim = new ProjectManager({
+const james = new ProjectManager({
     name: 'James',
     location: 'Westeros',
     age: 33,
@@ -204,12 +206,16 @@ console.log(hodgert.grade('Sam','marksmanship'));
 console.log(sam.listSubjects());
 console.log(mike.PRAssignment('React'));
 console.log(joe.sprintChallenge('chemistry'));
+console.log(don.standUp('#WEB24'));
+console.log(matt.debugsCode('Sam', 'Python'));
 
-/*****BREAK*****/
+/*****LINE BREAK*****/
 
-/*Stretch Problem
+/*Stretch Problems
 1. Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
+
 2. Now that our students have a grade build out a method on the Instructor (this will be used by BOTH instructors and PM's) that will randomly add or subtract points to a student's grade. Math.random will help.
+
 3. Add a graduate method to a student.
     a. This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
     b. If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
