@@ -41,10 +41,13 @@ class Instructor extends Person {
         //logs out the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         return `Today we are learning about ${subject}.`;
     }
-    //Need Help here
     grade(student, subject){
         //logs out '{student.name} receives a perfect score on {subject}'
-        return `${student} receives a perfect score on ${subject}!`;
+        return `${student.name} receives a perfect score on ${subject}!`;
+    }
+    //STRETCH Now that our students have a grade, build out a method on the Instructor (this will be used by BOTH instructors and PM's) that will randomly add or subtract points to a student's grade. Math.random will help.
+    gradeAdd(student){
+        return student.grade = Math.round((Math.random()*100));
     }
 }
 
@@ -66,6 +69,7 @@ class Student extends Person {
         super(studentAttrs)
         this.previousBackgroun = studentAttrs.previousBackground;
         this.favSubjects = studentAttrs.favSubjects;
+        this.grade = studentAttrs.grade;
     }
     listSubjects(){
         //logs out all of the student's favoriteSubjects one by one
@@ -78,6 +82,16 @@ class Student extends Person {
     sprintChallenge(subject){
         //logs out student.name has begun sprint challenge on {subject}
         return `${this.name} has begun sprint challenge on ${subject}.`;
+    }
+    //STRETCH 
+        //a. This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
+        //b. If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
+    graduate(){
+        if(this.grade > 70){
+            return `${this.name} passes!`
+        } else{
+            return `${this.name} needs to study more!`
+        }
     }
 }
 
@@ -104,7 +118,7 @@ class ProjectManager extends Instructor {
     }
     debugsCode(student, subject){
         //takes in a student object and a subject and logs out {name} debugs {student.name}'s code on {subject}
-        return `${this.name} debugs ${student}'s code on ${subject}.`
+        return `${this.name} debugs ${student.name}'s code on ${subject}.`
     }
 }
 
@@ -147,7 +161,8 @@ const sam = new Student({
     favLanguage: 'Python',
     specialty: 'Front-end',
     catchPhrase: `Let's Party!`,
-    favSubjects: ['sailing', 'carpentry', 'classical music']
+    favSubjects: ['sailing', 'carpentry', 'classical music'],
+    grade: 91
 });
 
 const mike = new Student({
@@ -157,7 +172,8 @@ const mike = new Student({
     favLanguage: 'Ruby',
     specialty: 'making zoom meetings',
     catchPhrase: `Yip Kay Yay!`,
-    favSubjects: ['html', 'css', 'javascript']
+    favSubjects: ['html', 'css', 'javascript'],
+    grade: 98
 });
 
 const joe = new Student({
@@ -167,7 +183,8 @@ const joe = new Student({
     favLanguage: 'C#',
     specialty: 'eating pizza',
     catchPhrase: `Hi Morpheus, I'm in the matrix!`,
-    favSubjects: ['basketball', 'movies', 'travel']
+    favSubjects: ['basketball', 'movies', 'travel'],
+    grade: 95
 });
 
 //PROJECT MANAGER WAREHOUSE
@@ -202,12 +219,15 @@ const matt = new ProjectManager({
 //CONSOLE LOG TESTS
 console.log(fred.speak());
 console.log(gunny.demo('marksmanship'));
-console.log(hodgert.grade('Sam','marksmanship'));
+console.log(hodgert.grade(joe,'marksmanship'));
 console.log(sam.listSubjects());
 console.log(mike.PRAssignment('React'));
 console.log(joe.sprintChallenge('chemistry'));
 console.log(don.standUp('#WEB24'));
-console.log(matt.debugsCode('Sam', 'Python'));
+console.log(matt.debugsCode(mike, 'Python'));
+console.log(fred.gradeAdd(sam));
+console.log(matt.gradeAdd(mike));
+console.log(joe.graduate());
 
 /*****LINE BREAK*****/
 
